@@ -1,17 +1,60 @@
 import csv
 
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+planets = []
+original = []
 
 
-with open('planets.csv'):
+def import_data(reader):
+    global planets, original
+    for row in reader:
+        if row[0] == 'Planet':
+            continue
+        name = row[0]
+        color = row[1]
+        mass = float(row[2])
+        dia = row[3]
+        density = row[4]
+        surface_grav = row[5]
+        esc_vel = row[6]
+        rot_per = row[7]
+        day_len = row[8]
+        sun_dist = row[9]
+        peri = row[10]
+        aph = row[11]
+        orb_per = row[12]
+        orb_vel = row[13]
+        orb_inc = row[14]
+        orb_ecc = row[15]
+        obl = row[16]
+        avg_temp = row[17]
+        surf_pressure = row[18]
+        moons = row[19]
+        if row[20] == 'Yes':
+            rings = True
+        elif row[20] == 'No':
+            rings = False
+        if row[21] == 'Yes':
+            mag_field = True
+        elif row[21] == 'No':
+            mag_field = False
+        planets.append([name, color, mass, dia, density,
+                        surface_grav, esc_vel, rot_per, day_len, sun_dist, peri,
+                        aph, orb_per, orb_vel, orb_inc, orb_ecc, obl, avg_temp,
+                        surf_pressure, moons, rings, mag_field])
+    for row in planets:
+        print(row)
+    original = planets
+
+
+def selection_sort():
+    result = []
+    return result
+
+
+with open('planets.csv') as planet:
     if __name__ == '__main__':
-        print_hi('PyCharm')
+        reader = csv.reader(planet)
+        import_data(reader)
+        sort1 = selection_sort()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
