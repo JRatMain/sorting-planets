@@ -1,4 +1,5 @@
 import csv
+import time
 
 planets = []
 original = []
@@ -44,20 +45,37 @@ def import_data(reader):
 
     original = planets
 
-def compare(list, list2):
-    return list[2] < list2[2]
 
-# selection sort algorithm
-def selection_sort():
+def insertion_sort():
     global planets
-    result = []
+    if planets != original:
+        planets = original
     for i in range(len(planets)):
         index = i
         for j in range(i + 1, len(planets)):
             if compare(planets[j], planets[index]):
                 index = j
         planets[i], planets[index] = planets[index], planets[i]
+    result = planets
+    return result
 
+
+def compare(list, list2):
+    return list[2] < list2[2]
+
+
+# selection sort algorithm
+def selection_sort():
+    global planets
+    low = float('inf')
+    if planets != original:
+        planets = original
+    for row in planets:
+        mass = planets[row][2]
+        if mass < low:
+            pass
+        # planets[row], planets[index] = planets[index], planets[i]
+    result = planets
     return result
 
 
@@ -65,6 +83,9 @@ with open('planets.csv') as planet:
     if __name__ == '__main__':
         reader = csv.reader(planet)
         import_data(reader)
+        for row in planets:
+            print(row)
+
         sort1 = selection_sort()
         for row in planets:
             print(row)
