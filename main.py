@@ -41,13 +41,23 @@ def import_data(reader):
                         surface_grav, esc_vel, rot_per, day_len, sun_dist, peri,
                         aph, orb_per, orb_vel, orb_inc, orb_ecc, obl, avg_temp,
                         surf_pressure, moons, rings, mag_field])
-    for row in planets:
-        print(row)
+
     original = planets
 
+def compare(list, list2):
+    return list[2] < list2[2]
 
+# selection sort algorithm
 def selection_sort():
+    global planets
     result = []
+    for i in range(len(planets)):
+        index = i
+        for j in range(i + 1, len(planets)):
+            if compare(planets[j], planets[index]):
+                index = j
+        planets[i], planets[index] = planets[index], planets[i]
+
     return result
 
 
@@ -56,5 +66,6 @@ with open('planets.csv') as planet:
         reader = csv.reader(planet)
         import_data(reader)
         sort1 = selection_sort()
-
+        for row in planets:
+            print(row)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
