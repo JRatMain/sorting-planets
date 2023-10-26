@@ -67,7 +67,7 @@ def import_data(reader):
 
 # Sorts the list of lists by comparing elements next to each other.
 def insertion_sort():
-    global planets, original, steps, steps1
+    global planets, original, steps1
     if planets != original:
         planets = original
 
@@ -102,9 +102,9 @@ def selection_sort():
                     index = j
 
                 steps += 1
+
         # swaps values at each index using a tuple.
         planets[i], planets[index] = planets[index], planets[i]
-
         steps += 1
     result = planets
     return result
