@@ -1,11 +1,46 @@
+"""Output:
+
+Selection sort results:
+Mercury, 0.33
+Mars, 0.642
+Venus, 4.87
+Earth, 5.97
+Uranus, 86.8
+Neptune, 102.0
+Saturn, 568.0
+Jupiter, 1898.0
+Average time: 5400.41 nanoseconds.
+It took: 14 steps to complete.
+------------------------------------------
+
+------------------------------------------
+Insertion sort results:
+Mercury, 0.33
+Mars, 0.642
+Venus, 4.87
+Earth, 5.97
+Uranus, 86.8
+Neptune, 102.0
+Saturn, 568.0
+Jupiter, 1898.0
+Average time: 2690.0 nanoseconds.
+It took: 7 steps to complete.
+------------------------------------
+
+Based on the output above, the insertion sort appears to operate faster and with fewer steps
+compared to the selection sort.
+"""
+# Modules imported for additional functionality.
 import csv
 import time
 
+# Global variables. One is changed as it is sorted, but the other remains the same after the data is imported.
 planets = []
 original = []
 
 
-def show_results(sort, sort1, a1, a2, steps2, steps):
+# Displays the results of the sorting algorithms.
+def show_results(sort, sort1, a1, a2, steps, steps2):
     print('Selection sort results: ')
     for row in sort:
         print(str(row[0]) + ", " + str(row[2]))
@@ -21,6 +56,7 @@ def show_results(sort, sort1, a1, a2, steps2, steps):
     print('It took: ' + str(steps2) + ' steps to complete.')
 
 
+# Imports data from the CSV file.
 def import_data(reader):
     global planets, original
     for row in reader:
@@ -110,6 +146,7 @@ def selection_sort():
     return result, steps
 
 
+# Opens the csv file and runs the program.
 with open('planets.csv') as planet:
     if __name__ == '__main__':
         reader = csv.reader(planet)
@@ -124,6 +161,4 @@ with open('planets.csv') as planet:
         end2 = time.perf_counter_ns()
         average1 = (end - start) / 100
         average2 = (end2 - start2) / 100
-        show_results(sort1, sort2, average1, average2, steps2, steps)
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        show_results(sort1, sort2, average1, average2, steps, steps2)
