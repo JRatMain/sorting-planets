@@ -68,8 +68,7 @@ def import_data(reader):
 # Sorts the list of lists by comparing elements next to each other.
 def insertion_sort():
     global planets, original, steps1
-    if planets != original:
-        planets = original
+    planets = original
 
     for i in range(1, len(planets)):
         cur_planet = planets[i]
@@ -94,17 +93,17 @@ def selection_sort():
     global planets, original, steps
     if planets != original:
         planets = original
-    while not sorted(planets, key=lambda x: x[2]):
-        for i in range(len(planets)):
-            index = i
-            for j in range(i + 1, len(planets)):
-                if compare(planets[j], planets[index]):
-                    index = j
 
+    size = len(planets)
+    for ind in range(size):
+        min_ind = ind
+        for j in range(i + 1, size):
+            if compare(planets[j], planets[min_ind]):
+                min_ind = j
                 steps += 1
 
         # swaps values at each index using a tuple.
-        planets[i], planets[index] = planets[index], planets[i]
+        planets[ind], planets[min_ind] = planets[min_ind], planets[ind]
         steps += 1
     result = planets
     return result
@@ -121,7 +120,6 @@ with open('planets.csv') as planet:
         end = time.perf_counter_ns()
         start2 = time.perf_counter_ns()
         for i in range(100):
-            steps = 0
             sort2 = insertion_sort()
         end2 = time.perf_counter_ns()
         average1 = (end - start) / 100
