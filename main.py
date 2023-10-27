@@ -3,12 +3,9 @@ import time
 
 planets = []
 original = []
-steps = 0
-steps1 = 0
 
 
-def show_results(sort, sort1, a1, a2):
-    global steps, steps1
+def show_results(sort, sort1, a1, a2, steps2, steps):
     print('Selection sort results: ')
     for row in sort:
         print(str(row[0]) + ", " + str(row[2]))
@@ -21,7 +18,7 @@ def show_results(sort, sort1, a1, a2):
     for row in sort1:
         print(str(row[0]) + ", " + str(row[2]))
     print('Average time: ' + str(a2) + ' nanoseconds.')
-    print('It took: ' + str(steps1) + ' steps to complete.')
+    print('It took: ' + str(steps2) + ' steps to complete.')
 
 
 def import_data(reader):
@@ -61,26 +58,30 @@ def import_data(reader):
                         surface_grav, esc_vel, rot_per, day_len, sun_dist, peri,
                         aph, orb_per, orb_vel, orb_inc, orb_ecc, obl, avg_temp,
                         surf_pressure, moons, rings, mag_field])
-
-    original = planets
+        original.append([name, color, mass, dia, density,
+                         surface_grav, esc_vel, rot_per, day_len, sun_dist, peri,
+                         aph, orb_per, orb_vel, orb_inc, orb_ecc, obl, avg_temp,
+                         surf_pressure, moons, rings, mag_field])
 
 
 # Sorts the list of lists by comparing elements next to each other.
 def insertion_sort():
-    global planets, original, steps1
-    planets = original
+    global planets, original
+    steps1 = 0
+    planets = list(original)
 
     for i in range(1, len(planets)):
+
         cur_planet = planets[i]
         x = float(cur_planet[2])
         j = i - 1
         while j >= 0 and x < float(planets[j][2]):
             planets[j + 1] = planets[j]
-            j = j - 1
+            j -= 1
             steps1 += 1
         planets[j + 1] = cur_planet
     result = planets
-    return result
+    return result, steps1
 
 
 # Compares the mass of each planet. Returns either true or false.
@@ -90,14 +91,14 @@ def compare(list, list2):
 
 # selection sort algorithm
 def selection_sort():
-    global planets, original, steps
-    if planets != original:
-        planets = original
+    global planets, original
+    steps = 0
+    planets = list(original)
 
     size = len(planets)
     for ind in range(size):
         min_ind = ind
-        for j in range(i + 1, size):
+        for j in range(ind + 1, size):
             if compare(planets[j], planets[min_ind]):
                 min_ind = j
                 steps += 1
@@ -106,7 +107,7 @@ def selection_sort():
         planets[ind], planets[min_ind] = planets[min_ind], planets[ind]
         steps += 1
     result = planets
-    return result
+    return result, steps
 
 
 with open('planets.csv') as planet:
@@ -115,15 +116,14 @@ with open('planets.csv') as planet:
         import_data(reader)
         start = time.perf_counter_ns()
         for i in range(100):
-            steps = 0
-            sort1 = selection_sort()
+            sort1, steps = selection_sort()
         end = time.perf_counter_ns()
         start2 = time.perf_counter_ns()
-        for i in range(100):
-            sort2 = insertion_sort()
+        for k in range(100):
+            sort2, steps2 = insertion_sort()
         end2 = time.perf_counter_ns()
         average1 = (end - start) / 100
         average2 = (end2 - start2) / 100
-        show_results(sort1, sort2, average1, average2)
+        show_results(sort1, sort2, average1, average2, steps2, steps)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
