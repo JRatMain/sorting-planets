@@ -1,4 +1,4 @@
-"""Output:
+"""Output sample:
 
 Selection sort results:
 Mercury, 0.33
@@ -28,7 +28,8 @@ It took: 7 steps to complete.
 ------------------------------------
 
 Based on the output above, the insertion sort appears to operate faster and with fewer steps
-compared to the selection sort.
+compared to the selection sort. Including the 'compare' function, the selection sort algorithm is
+slightly longer than the insertion sort algorithm, making it less efficient as a result.
 """
 # Modules imported for additional functionality.
 import csv
